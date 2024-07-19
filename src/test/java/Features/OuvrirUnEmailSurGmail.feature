@@ -1,14 +1,18 @@
-Feature: Lecture des emails
+@tag
+Feature: Ouvrir un email sur Outlook
 
-  Scenario: Ouvrir un email sur Gmail
-    Given L'utilisateur est sur la page de connexion outlook
-    When L'utilisateur se connecte avec l'adresse email 
-    And  Créé par vous
-    And je saisis un  mot de passe  correct "<password>"
-    And L'utilisateur ouvre l'email avec le sujet "Sujet de l'email"
-    Then L'utilisateur doit voir le contenu de l'email
+@tag1
+  Scenario: L'utilisateur ouvre un email sur Outlook
+    Given L'utilisateur est sur la page de connexion Outlook
+    When L'utilisateur se connecte avec l'adresse email "takwa.haggui@esprit.tn"
+    And L'utilisateur sélectionne le compte professionnel
+    And je saisis un mot de passe correct "<password>"
+    And L'utilisateur approuve la demande de connexion manuellement
+    And L'utilisateur répond à la question rester connecté
+   Then L'utilisateur ouvre l'email pour la récupération de mot de passe
+  
     
     
-    | emailCorrect                        | password|
-    | takwa.haggui@esprit.tn          | Hajouda123@|
- 
+    Examples:
+      | emailCorrect           | password   |
+      | takwa.haggui@esprit.tn |   Hajouda@haykel123@ |

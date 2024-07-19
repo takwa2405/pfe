@@ -2,6 +2,8 @@ package StepsDefinitions;
 
 import java.time.Duration;
 
+import org.junit.Assert;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -18,8 +20,9 @@ public class OuvrirUnEmailSurGmail {
 
     WebDriver driver;
     private static WebDriverWait wait;
+    
 
-    @Given("L'utilisateur est sur la page de connexion outlook")
+    @Given("L'utilisateur est sur la page de connexion Outlook")
     public void utilisateur_est_sur_page_connexion_gmail() {
         System.setProperty("webdriver.chrome.driver", "C:\\Users\\NG\\Desktop\\takwa\\chromedriver-win64\\chromedriver-win64\\chromedriver.exe");
         driver = new ChromeDriver();
@@ -27,37 +30,65 @@ public class OuvrirUnEmailSurGmail {
         driver.get("https://outlook.office.com/mail/");
     }
 
+
     @When("L'utilisateur se connecte avec l'adresse email {string}")
-    public void utilisateur_se_connecte_avec_email(String  emailCorrect) {
+    public void utilisateur_se_connecte_avec_email(String emailCorrect) {
         WebElement emailField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("i0116")));
         emailField.sendKeys(emailCorrect);
-        WebElement nextButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("idSIButton9")));
-        nextButton.click();
+
+        WebElement suivantButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("idSIButton9")));
+        suivantButton.click();
     }
 
-    @And("Créé par vous")
-    public void je_clique_sur_Créé_par_vous() {
-        WebElement buttonCreeParVous = wait.until(ExpectedConditions.elementToBeClickable(By.id("msaTileHint")));
-        buttonCreeParVous.click();
-    }
 
+
+    @And("L'utilisateur sélectionne le compte professionnel")
+    public void utilisateur_selectionne_compte_professionnel() {
+        // Attendez que l'élément soit cliquable
+        WebElement compteProfessionnelButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id='aadTileTitle']")));
+        
+        // Cliquez sur l'élément
+        compteProfessionnelButton.click();
+    }
+    
+    
+    
     @And("je saisis un mot de passe correct {string}")
     public void je_saisis_un_mot_de_passe_valide_Email(String password) {
         WebElement inputMotDePasse = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("i0118"))); // Assurez-vous que l'ID est correct
         inputMotDePasse.sendKeys(password);
         WebElement signInButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("idSIButton9")));
         signInButton.click();
+        
+   
+    }
+    @And("L'utilisateur approuve la demande de connexion manuellement")
+    public void utilisateur_approuve_demande_connexion_manuellement() throws InterruptedException {
+       
+        Thread.sleep(30000); // Wait 30 seconds for manual approval
     }
 
-    @And("L'utilisateur ouvre l'email avec le sujet {string}")
-    public void utilisateur_ouvre_email_avec_sujet(String subject) {
-        WebElement email = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(), '" + subject + "')]")));
-        email.click();
+    @And("L'utilisateur répond à la question rester connecté")
+    public void utilisateur_repond_rester_connecte() {
+        WebElement staySignedInButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("idSIButton9")));
+        staySignedInButton.click();
     }
 
-    @Then("L'utilisateur doit voir le contenu de l'email")
-    public void utilisateur_voit_contenu_email() {
-        WebElement emailBody = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.a3s.aXjCH")));
-        assert emailBody.isDisplayed();
+    @Then("L'utilisateur est redirigé vers la boîte de réception")
+    public void utilisateur_est_redirige_vers_boite_de_reception() {
+        WebElement inboxElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='Boîte de réception']"))); // Example XPath, adjust as needed
+        Assert.assertTrue(inboxElement.isDisplayed());
     }
-}
+    
+    @Then("L'utilisateur ouvre l'email pour la récupération de mot de passe")
+    public void utilisateur_ouvre_email_recuperation() {
+    	 
+        // Wait until the specific email is visible and clickable, then click on it
+    	 WebElement emailElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[contains(text(), 'si_noreply@esprit.tn')]")));
+         emailElement.click();
+        }
+        
+        
+    
+    
+    }

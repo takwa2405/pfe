@@ -1,12 +1,19 @@
 package StepsDefinitions;
 
+import static org.junit.Assert.assertNotNull;
+
+import java.io.File;
+import java.io.IOException;
 import java.time.Duration;
 import java.util.ArrayList;
 
+import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.UnhandledAlertException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -188,6 +195,27 @@ public void message_erreur_affiche() {
         // Afficher un message d'erreur si l'élément n'est pas trouvé dans le délai imparti
         System.out.println("Le message d'erreur 'Adresse e-mail incorrecte' n'a pas été trouvé.");
       
+}
+
+@Then("une capture d'écran est générée de notre email de récupération avec le nom {string}")
+public void genere_Capture_Decran(String nomDefichierDeCapture)
+{
+	
+	
+	File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+	// Now you can do whatever you need to do with it, for example copy somewhere
+	try {
+		FileUtils.copyFile(scrFile, new File("C:\\Users\\NG\\Desktop\\"+nomDefichierDeCapture));
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}}
+
+@And("j'attends jusqu'à avoir le message de récupération")
+public void evoir_message_de_recup() {
+	  WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+      WebElement errorMessageBox = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"UniqueMessageBody_1\"]")));
+      assertNotNull(errorMessageBox);
 }
 
 }

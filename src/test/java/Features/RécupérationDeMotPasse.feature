@@ -19,11 +19,14 @@ Feature: Récupération du mot de passe et ouverture d'email sur Outlook
     And je saisis un mot de passe correct "<password>"
     And L'utilisateur approuve la demande de connexion manuellement
     And L'utilisateur répond à la question rester connecté
-    Then L'utilisateur ouvre l'email pour la récupération de mot de passe
+   And L'utilisateur ouvre l'email pour la récupération de mot de passe
+   And j'attends jusqu'à avoir le message de récupération
+   Then une capture d'écran est générée de notre email de récupération avec le nom "<nomDefichierDeCapture>"
+
 
     Examples:
-      | email                           | identifiantvalide | emailCorrect           | password            |
-      | takwa.haggui@esprit.tn          | 191MTB1025        | takwa.haggui@esprit.tn | Hajouda@haykel123@  |
+      | email                           | identifiantvalide | emailCorrect           | password            |passwordenvoye|nomDefichierDeCapture    |  
+      | takwa.haggui@esprit.tn          | 191MTB1025        | takwa.haggui@esprit.tn | Hajouda@haykel123@  |arbrevert1234 |captureDeRecuperation.png|
      
      
      

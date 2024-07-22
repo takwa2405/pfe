@@ -25,7 +25,7 @@ public class LoginParent {
 	        System.setProperty("webdriver.chrome.driver", "C:\\Users\\NG\\Desktop\\takwa\\chromedriver-win64\\chromedriver-win64\\chromedriver.exe");
 	        driver = new ChromeDriver();
 	        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-	        driver.get("http://192.168.0.21:7070/ESBOnline/Online/default.aspx");
+	        driver.get("https://esprit-tn.com/esponline/online/default.aspx");
 	    }
 
 
@@ -52,15 +52,37 @@ public class LoginParent {
 	        Thread.sleep(5000); // Utilisation de Thread.sleep pour simulation, à éviter dans les tests réels
 	        
 	    }
+	    
+	    @And("J'entre un identifiant incorrectP {string} pour l'utilisateur")
+	    public void j_entre_un_identifiant_incorrectP_pour_l_utilisateur(String identifiantIncoP) throws InterruptedException {
+	        WebElement inputIdentifiant = driver.findElement(By.id("ContentPlaceHolder1_TextBox4"));
+	        inputIdentifiant.sendKeys(identifiantIncoP);
+	        Thread.sleep(5000); // Utilisation de Thread.sleep pour simulation, à éviter dans les tests réels
+	        
+	    }
+	    @And("J'entre un identifiant valide {string}")
+	    public void j_entre_un_identifiant_valide_pour_P(String identifiantvalideP) throws InterruptedException {
+	        WebElement inputIdentifiant = driver.findElement(By.id("ContentPlaceHolder1_TextBox4"));
+	        inputIdentifiant.sendKeys(identifiantvalideP);
+	        Thread.sleep(5000); // Utilisation de Thread.sleep pour simulation, à éviter dans les tests réels
+	        
+	    }
 
 	    @And("je saisis un mot de passe correctP {string}")
 	    public void je_saisis_un_mot_de_passe_correctP(String pswP) {
 	        WebElement inputMotDePasse = driver.findElement(By.id("ContentPlaceHolder1_pass_parent"));
 	        inputMotDePasse.sendKeys(pswP);
 	    } 
-	    
-	    
-	    
+	    @And("je saisis un mot de passe incorrectP {string}")
+	    public void je_saisis_un_mot_de_passe_incorrectP(String motdepasseincorrectP) {
+	        WebElement inputMotDePasse = driver.findElement(By.id("ContentPlaceHolder1_pass_parent"));
+	        inputMotDePasse.sendKeys(motdepasseincorrectP);
+	    } 
+	    @And("je saisis un mot de passe correctP2 {string}")
+	    public void je_saisis_un_mot_de_passe_correctP1(String pswP1) {
+	        WebElement inputMotDePasse = driver.findElement(By.id("ContentPlaceHolder1_pass_parent"));
+	        inputMotDePasse.sendKeys(pswP1);
+	    }
 	 
 	    @And("je clique sur le bouton de connexion suivant")
 	    public void je_clique_sur_le_bouton_de_connexion() {
@@ -75,7 +97,13 @@ public class LoginParent {
 	    	    
 	    	    Assert.assertTrue(userDashboard.isDisplayed());
 	     }
-	    
+	    @Then("l'identifiant est incorrect")
+	    public void messageErreurIdentifiantIncorrect() {
+	        // Code pour vérifier qu'un message d'erreur s'affiche
+	        // WebElement messageErreur = driver.findElement(By.id("idMessageErreur"));
+	        // String messageErreurText = messageErreur.getText();
+	        // assertEquals("Identifiant incorrect", messageErreurText);
+	    }
 
 
 }

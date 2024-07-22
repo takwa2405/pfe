@@ -3,6 +3,7 @@ Feature: Mot de passe oublié
      
 @tag1
 Scenario Outline: Récupération de mot de passe pour un utilisateur
+
     Given Je suis sur la page d'accueil d'ESBonlineRCM
    
    When Une page d'authentification pour espace étudiant s'afficheRCM
@@ -18,8 +19,27 @@ Scenario Outline: Récupération de mot de passe pour un utilisateur
       
     | email                           | identifiantvalide |
     | takwa.haggui@esprit.tn          |   191MTB1025      |
+  
+  
  
- @tag2
+    @tag2
+  Scenario: L'utilisateur ouvre un email sur Outlook
+   Given L'utilisateur est sur la page de connexion Outlook
+   And L'utilisateur se connecte avec l'adresse email "<emailCorrect>"
+    And L'utilisateur sélectionne le compte professionnel
+    And je saisis un mot de passe correct "<password>"
+    And L'utilisateur approuve la demande de connexion manuellement
+    And L'utilisateur répond à la question rester connecté
+   Then L'utilisateur ouvre l'email pour la récupération de mot de passe
+  
+    
+    
+    Examples:
+      | emailCorrect           | password   |
+      | takwa.haggui@esprit.tn |   Hajouda@haykel123@ |
+    
+   
+  @tag3
  Scenario: Récupération de mot de passe pour un email invalide
 
      Given Je suis sur la page d'accueil d'ESBonlineRCM
@@ -34,4 +54,5 @@ Scenario Outline: Récupération de mot de passe pour un utilisateur
     Examples:
     | emailinvalide                   | identifiantvalide |
     | takwa.hagguiesprit.tn          |   191MTB1025        |
-    
+       
+ 

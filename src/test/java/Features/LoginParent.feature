@@ -23,7 +23,7 @@ Feature: Authentification
     And J'entre un identifiant incorrectP "<identifiantIncoP>" pour l'utilisateur
      And je saisis un mot de passe correctP "<pswP>"
       And je clique sur le bouton de connexion suivant
-    Then  l'identifiant est incorrect 
+    Then  um message d'erreur Erreur du serveur dans l'application 
     
     Examples:
     | identifiantIncoP    | pswP              |
@@ -34,10 +34,11 @@ Feature: Authentification
      Given Je suis sur la page d'accueil d'ESBonlineP
     When Je clique sur le "<linkText>"
     And Une page d'authentification pour espace Parent s'affiche
-     And J'entre un identifiant valide "<identifiantvalideP>"
+       And J'entre un identifiant valide "<identifiantvalideP>"
        And  je saisis un mot de passe incorrectP "<motdepasseincorrectP>"
        And je clique sur le bouton de connexion suivant
-    Then  le mot de passe est incorrect 
+    Then  message d'erreur verifier vos parametres
+    
     Examples:
       | identifiantvalideP | motdepasseincorrectP |
       | 34104052           | rtyuarbrevert1234   |
@@ -50,7 +51,7 @@ Feature: Authentification
     And Une page d'authentification pour espace Parent s'affiche
     And je saisis un mot de passe correctP2 "<pswP1>"
      And je clique sur le bouton de connexion suivant
-    Then Un message d'erreur indiquant que l'identifiant est requis est affiché
+    Then un message d'erreur indiquant que cin incorrect
     Examples:
       | identifiantvide | pswP1         |
       |                 | 34104052     |
@@ -62,24 +63,24 @@ Feature: Authentification
     When Je clique sur le "<linkText>"
     And Une page d'authentification pour espace Parent s'affiche
      And J'entre un identifiant valide "<identifiantvalideP>"
-       And je clique sur le bouton de connexion suivant
-    Then  le mot de passe est incorrect 
+      And je clique sur le bouton de connexion suivant
+    Then   message d'erreur verifier vos parametres
     Examples:
       | identifiantvalideP |
       | 34104052           | 
       
  @tag7
   Scenario Outline: Authentification avec un identifiant et mot de passe valides
-    Scenario Outline: Authentification avec un identifiant avec des espaces au début
+    Scenario Outline: Authentification des un identifiants valide 
     Given Je suis sur la page d'accueil d'ESBonlineP
     When Je clique sur le "<linkText>"
     And Une page d'authentification pour espace Parent s'affiche
-    And J'entre un identifiant valide "<identifiantvalideP>"
+   And J'entre un identifiant valide "<identifiantvalideP>"
     And je saisis un mot de passe correctP "<pswP>"
     And je clique sur le bouton de connexion suivant
-    Then l'utilisateur est redirigé vers son espace Parent
+    Then l'utilisateur est redirigé vers son espace Parent 
     Examples:
-      | identifiantP    |pswP               |linkText     |
-      |34104052         |34104052           |Espace Parent|
+      | identifiantvalideP|pswP               |linkText     |
+      |34104052           |34104052           |Espace Parent|
   
          

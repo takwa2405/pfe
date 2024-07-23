@@ -2,6 +2,7 @@ package StepsDefinitions;
 
 import java.time.Duration;
 
+import org.junit.After;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -18,14 +19,14 @@ import io.cucumber.java.en.When;
 public class LoginParent { 
 
 	 private static WebDriver driver;
-	    private static WebDriverWait wait;
+	 private static WebDriverWait wait;
 
 	    @Given("Je suis sur la page d'accueil d'ESBonlineP")
 	    public void je_suis_sur_la_page_d_accueil_d_es_bonlineP() {
 	        System.setProperty("webdriver.chrome.driver", "C:\\Users\\NG\\Desktop\\takwa\\chromedriver-win64\\chromedriver-win64\\chromedriver.exe");
 	        driver = new ChromeDriver();
 	        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-	        driver.get("https://esprit-tn.com/esponline/online/default.aspx");
+	        driver.get("http://192.168.0.21:7070/ESBOnline/Online/default.aspx");
 	    }
 
 
@@ -73,6 +74,7 @@ public class LoginParent {
 	        WebElement inputMotDePasse = driver.findElement(By.id("ContentPlaceHolder1_pass_parent"));
 	        inputMotDePasse.sendKeys(pswP);
 	    } 
+	    
 	    @And("je saisis un mot de passe incorrectP {string}")
 	    public void je_saisis_un_mot_de_passe_incorrectP(String motdepasseincorrectP) {
 	        WebElement inputMotDePasse = driver.findElement(By.id("ContentPlaceHolder1_pass_parent"));
@@ -97,13 +99,28 @@ public class LoginParent {
 	    	    
 	    	    Assert.assertTrue(userDashboard.isDisplayed());
 	     }
-	    @Then("l'identifiant est incorrect")
-	    public void messageErreurIdentifiantIncorrect() {
-	        // Code pour vérifier qu'un message d'erreur s'affiche
-	        // WebElement messageErreur = driver.findElement(By.id("idMessageErreur"));
-	        // String messageErreurText = messageErreur.getText();
-	        // assertEquals("Identifiant incorrect", messageErreurText);
+	    
+	  
+	    
+	    @Then("message d'erreur verifier vos parametres")
+	    public void un_message_d_erreur_indiquant_que_l_identifiant_est_incorrect() {
+	    	 
+	        Assert.assertTrue( driver.switchTo().alert().getText().contains("Verifier vos paramètres"));
+	        driver.switchTo().alert().accept();
 	    }
-
-
-}
+	    
+	    @Then("um message d'erreur Erreur du serveur dans l'application")
+	    public void un_message_d_erreur_indiquant_que_l_identifiant_est_incorrect_devrait_s_afficher() {
+	        WebElement errorMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h1[contains(text(),'Erreur du serveur')]")));
+	  
+	        Assert.assertEquals("Erreur du serveur dans l'application '/ESBOnline'.", errorMessage.getText());
+	    }
+	    
+	    @Then("un message d'erreur indiquant que cin incorrect")
+	    public void un_message_d_erreur_indiquant_que_l_identifiant_est_requis() {
+	        WebElement errorMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"ContentPlaceHolder1_RequiredFieldValidator4\"]")));
+	  
+	        Assert.assertEquals("Cin incorrect", errorMessage.getText());   
+	    }
+	    
+	   }

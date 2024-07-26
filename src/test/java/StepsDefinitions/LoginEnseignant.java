@@ -128,6 +128,14 @@ public class LoginEnseignant {
 		        Assert.assertEquals(actualPlaceholder, expectedPlaceholder);
 	     
 }
+	    @Then("affichage d'un message Password incorrect")
+	    public void revien_au_page_connexion_enseignant() {
+	    	 WebElement errorMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'Password incorrect')]")));
+		     // Get the actual placeholder attribute value
+	    	  Assert.assertEquals("Password incorrect", errorMessage.getText());
+	     
+}
+	    
 	    }
 
 	

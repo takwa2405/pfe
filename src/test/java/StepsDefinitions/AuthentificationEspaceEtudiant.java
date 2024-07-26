@@ -62,7 +62,7 @@ public class AuthentificationEspaceEtudiant {
         Thread.sleep(5000); // Utilisation de Thread.sleep pour simulation, à éviter dans les tests réels
         
     }
-    @And("J'entre un identifiant {string} pour l'utilisateur")
+    @And("J'entre un identifiant incorrect {string} pour l'utilisateur")
     public void j_entre_un_identifiant_pour_l_utilisateur(String identifiant7) {
         WebElement inputIdentifiant = driver.findElement(By.id("ContentPlaceHolder1_TextBox3"));
         inputIdentifiant.sendKeys(identifiant7);

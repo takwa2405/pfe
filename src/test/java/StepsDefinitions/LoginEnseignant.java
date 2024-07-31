@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.time.Duration;
 
 import org.apache.commons.io.FileUtils;
+import org.junit.After;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
@@ -12,6 +13,7 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -28,12 +30,16 @@ public class LoginEnseignant {
 
 	    @Given("Je suis sur la page d'accueil d'ESBonlineE")
 	    public void je_suis_sur_la_page_d_accueil_d_es_bonline_Enseignant() {
-	        System.setProperty("webdriver.chrome.driver", "C:\\Users\\NG\\Desktop\\takwa\\chromedriver-win64\\chromedriver-win64\\chromedriver.exe");
+	    
+	        System.setProperty("webdriver.chrome.driver","C:\\Users\\NG\\Desktop\\chromedriver-win64\\chromedriver.exe");
+	        ChromeOptions options = new ChromeOptions();
+	        options.addArguments("--disable-search-engine-choice-screen");
+
 	        driver = new ChromeDriver();
-	        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	        wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 	        driver.get("http://192.168.0.21:7070/ESBOnline/Online/default.aspx");
 	    }
-
+	    
 
 	    @When("Je clique sur Enseignant {string}")
 	    public void je_clique_sur_Enseignant(String linkText1) {
@@ -135,6 +141,13 @@ public class LoginEnseignant {
 	    	  Assert.assertEquals("Password incorrect", errorMessage.getText());
 	     
 }
+	    @After
+	    public void tearDown() {
+	        if (driver != null) {
+	            driver.quit();  // Fermer tous les navigateurs et terminer la session WebDriver
+	        }
+
+	    }
 	    
 	    }
 

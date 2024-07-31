@@ -7,6 +7,7 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -29,15 +30,21 @@ import java.io.File;
 import java.io.IOException;
 
 public class AuthentificationEspaceEtudiant {
+	
 
     private static WebDriver driver;
     private static WebDriverWait wait;
 
     @Given("Je suis sur la page d'accueil d'ESBonline")
     public void je_suis_sur_la_page_d_accueil_d_es_bonline() {
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\NG\\Desktop\\takwa\\chromedriver-win64\\chromedriver-win64\\chromedriver.exe");
-        driver = new ChromeDriver();
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        System.setProperty("webdriver.chrome.driver","C:\\Users\\NG\\Desktop\\chromedriver-win64\\chromedriver.exe");
+        // Configurer les options pour Chrome
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--disable-search-engine-choice-screen");
+
+        // Démarrer le navigateur Chrome avec les options spécifiées
+        driver = new ChromeDriver(options);
+        wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         driver.get("http://192.168.0.21:7070/ESBOnline/Online/default.aspx");
     }
 
@@ -49,9 +56,10 @@ public class AuthentificationEspaceEtudiant {
     }
 
     @And("Une page d'authentification pour espace étudiant s'affiche")
-    public void une_page_d_authentification_pour_espace_etudiant_s_affiche() {
+    public void une_page_d_authentification_pour_espace_etudiant_s_affiche() throws InterruptedException {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ContentPlaceHolder1_TextBox3")));
         Assert.assertTrue(driver.findElement(By.id("ContentPlaceHolder1_TextBox3")).isDisplayed());
+        Thread.sleep(5000);
     }
 
   
@@ -225,5 +233,12 @@ public class AuthentificationEspaceEtudiant {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    @After
+    public void tearDown() {
+        if (driver != null) {
+            driver.quit();  // Fermer tous les navigateurs et terminer la session WebDriver
+        }
+
     }
 }

@@ -8,6 +8,7 @@ import java.time.Duration;
 import java.util.ArrayList;
 
 import org.apache.commons.io.FileUtils;
+import org.junit.After;
 import org.junit.Assert;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -18,6 +19,7 @@ import org.openqa.selenium.UnhandledAlertException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -34,8 +36,16 @@ public class RécupérationDeMotPasse {
     
     @Before
     public void setUp() {
-        System.setProperty("webdriver.chrome.driver",  "C:\\Users\\NG\\Desktop\\takwa\\chromedriver-win64\\chromedriver-win64\\chromedriver.exe"); // Remplacez "path/to/chromedriver" par le chemin de votre driver Chrome
-        driver = new ChromeDriver();
+        System.setProperty("webdriver.chrome.driver","C:\\Users\\NG\\Desktop\\chromedriver-win64\\chromedriver.exe");
+        // Remplacez "path/to/chromedriver" par le chemin de votre driver Chrome
+        
+        // Configurer les options pour Chrome
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--disable-search-engine-choice-screen");
+
+        // Démarrer le navigateur Chrome avec les options spécifiées
+        driver = new ChromeDriver(options);
+       
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
     
@@ -145,15 +155,15 @@ public void clique_mot_passe_oublie() {
 }
 
 @And("L'utilisateur entre son adresse e-mail {string}")
-public void entre_adresse_email(String email) {
+public void entre_adresse_email(String emailCorrect) {
     WebElement emailField = driver.findElement(By.id("ContentPlaceHolder1_Adresse_mail_esp"));
-    emailField.sendKeys(email);
+    emailField.sendKeys(emailCorrect);
 }
 
 @When("L'utilisateur entre son adresse e-mailinvalide {string}")
-public void entre_adresse_emailinvalide(String emailinvalide) {
+public void entre_adresse_emailinvalide(String email) {
     WebElement emailField = driver.findElement(By.id("ContentPlaceHolder1_Adresse_mail_esp"));
-    emailField.sendKeys(emailinvalide);
+    emailField.sendKeys(email);
 }
 @And("Je clique sur Récupérer mot de passe")
 public void clique_recuperer_mot_passe() {
@@ -217,5 +227,11 @@ public void evoir_message_de_recup() {
       WebElement errorMessageBox = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"UniqueMessageBody_1\"]")));
       assertNotNull(errorMessageBox);
 }
+@After
+public void tearDown() {
+    if (driver != null) {
+        driver.quit();  // Fermer tous les navigateurs et terminer la session WebDriver
+    }
 
+}
 }

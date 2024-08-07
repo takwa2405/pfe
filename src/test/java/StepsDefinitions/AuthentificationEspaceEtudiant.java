@@ -11,6 +11,8 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import Weka.WekaModel;
+
 import java.io.File;
 import java.time.Duration;
 
@@ -34,20 +36,21 @@ public class AuthentificationEspaceEtudiant {
 
     private static WebDriver driver;
     private static WebDriverWait wait;
-
+    private static WekaModel model;
+    
     @Given("Je suis sur la page d'accueil d'ESBonline")
-    public void je_suis_sur_la_page_d_accueil_d_es_bonline() {
-        System.setProperty("webdriver.chrome.driver","C:\\Users\\NG\\Desktop\\chromedriver-win64\\chromedriver.exe");
+    public void je_suis_sur_la_page_d_accueil_d_es_bonline() throws Exception  {
+    	 System.setProperty("webdriver.chrome.driver","C:\\Users\\NG\\Desktop\\ESBChrome\\chromedriver-win64\\chromedriver.exe");
         // Configurer les options pour Chrome
+    	 
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--disable-search-engine-choice-screen");
-
         // Démarrer le navigateur Chrome avec les options spécifiées
         driver = new ChromeDriver(options);
         wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         driver.get("http://192.168.0.21:7070/ESBOnline/Online/default.aspx");
+ 
     }
-
 
     @When("Je clique sur {string}")
     public void je_clique_sur(String linkText) {
@@ -75,7 +78,20 @@ public class AuthentificationEspaceEtudiant {
         WebElement inputIdentifiant = driver.findElement(By.id("ContentPlaceHolder1_TextBox3"));
         inputIdentifiant.sendKeys(identifiant7);
     }
-
+    @Then("une capture d'écran est générée de l'espace etudiant etudiant avec identifiant incorrect {string}")
+    public void genere_Capture_Decran_pour_espace_etudiant_identifiantIncorrect(String nomDefichierDeCapture2)
+    {
+    	
+    	
+    	File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+    	// Now you can do whatever you need to do with it, for example copy somewhere
+    	try {
+    		FileUtils.copyFile(scrFile, new File("C:\\Users\\NG\\Desktop\\captureDecranEtudiant1\\" +nomDefichierDeCapture2));
+    	} catch (IOException e) {
+    		// TODO Auto-generated catch block
+    		e.printStackTrace();
+    	}
+    }
 
     @And("je saisis un identifiant invalide {string}")
     public void je_saisis_un_identifiant_invalide(String identifiant8) throws InterruptedException {
@@ -83,13 +99,40 @@ public class AuthentificationEspaceEtudiant {
         inputIdentifiant.sendKeys(identifiant8);
         Thread.sleep(5000); // Utilisation de Thread.sleep pour simulation, à éviter dans les tests réels
     }
+    @Then("une capture d'écran est générée de l'espace etudiant etudiant avec identifiant invalide {string}")
+    public void genere_Capture_Decran_pour_espace_etudiant_identifiantInvalide(String nomDefichierDeCapture3)
+    {
+    	
+    	
+    	File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+    	// Now you can do whatever you need to do with it, for example copy somewhere
+    	try {
+    		FileUtils.copyFile(scrFile, new File("C:\\Users\\NG\\Desktop\\captureDecranEtudiant1\\" +nomDefichierDeCapture3));
+    	} catch (IOException e) {
+    		// TODO Auto-generated catch block
+    		e.printStackTrace();
+    	}
+    }
     @And(" je saisis un identifiant  vide {string}")
     public void je_saisis_un_identifiant_vide(String identifiantvide) throws InterruptedException {
         WebElement inputIdentifiant = driver.findElement(By.id("ContentPlaceHolder1_TextBox3"));
         inputIdentifiant.sendKeys(identifiantvide);
         Thread.sleep(5000); // Utilisation de Thread.sleep pour simulation, à éviter dans les tests réels
     }
-       
+    @Then("une capture d'écran est générée de l'espace etudiant etudiant identifiant vide  {string}")
+    public void genere_Capture_Decran_pour_espace_etudiant_identifiantvide(String nomDefichierDeCapture5)
+    {
+    	
+    	
+    	File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+    	// Now you can do whatever you need to do with it, for example copy somewhere
+    	try {
+    		FileUtils.copyFile(scrFile, new File("C:\\Users\\NG\\Desktop\\captureDecranEtudiant1\\" +nomDefichierDeCapture5));
+    	} catch (IOException e) {
+    		// TODO Auto-generated catch block
+    		e.printStackTrace();
+    	}
+    }
        
   
 
@@ -99,7 +142,7 @@ public class AuthentificationEspaceEtudiant {
         buttonSuivant.click();
     }
 
-    @Then("Un message d'erreur indiquant que le compte est désactivé devrait s'afficher")
+    @And("Un message d'erreur indiquant que le compte est désactivé devrait s'afficher")
     public void un_message_d_erreur_indiquant_que_le_compte_est_désactivé_devrait_s_afficher() {
         WebElement message = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@placeholder='Votre CIN ou ID']")));
      // Get the actual placeholder attribute value
@@ -191,6 +234,20 @@ public class AuthentificationEspaceEtudiant {
         WebElement loginPage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'Cette page donne')]")));
         Assert.assertTrue(loginPage.isDisplayed());
         
+    }
+        @Then("une capture d'écran est générée de l'espace etudiant etudiant avec identifiant disactivé {string}")
+        public void genere_Capture_Decran_pour_espace_etudiant(String nomDefichierDeCapture1)
+        {
+        	
+        	
+        	File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+        	// Now you can do whatever you need to do with it, for example copy somewhere
+        	try {
+        		FileUtils.copyFile(scrFile, new File("C:\\Users\\NG\\Desktop\\captureDecranEtudiant1\\" +nomDefichierDeCapture1));
+        	} catch (IOException e) {
+        		// TODO Auto-generated catch block
+        		e.printStackTrace();
+        	}
      
     }
     @And("un message d'erreur indiquant que le mot de passe est requis est affiché")
@@ -206,6 +263,20 @@ public class AuthentificationEspaceEtudiant {
         Assert.assertTrue( driver.switchTo().alert().getText().contains("Verifier vos paramètres"));
         driver.switchTo().alert().accept();
     }
+    @Then("une capture d'écran est générée de l'espace etudiant etudiant identifiant valide et un mot de passe incorrect {string}")
+    public void genere_Capture_Decran_pour_espace_etudiant_identifiantvalide_mot_de_passe_incorrect(String nomDefichierDeCapture4)
+    {
+    	
+    	
+    	File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+    	// Now you can do whatever you need to do with it, for example copy somewhere
+    	try {
+    		FileUtils.copyFile(scrFile, new File("C:\\Users\\NG\\Desktop\\captureDecranEtudiant1\\" +nomDefichierDeCapture4));
+    	} catch (IOException e) {
+    		// TODO Auto-generated catch block
+    		e.printStackTrace();
+    	}
+    }
     @And("un message d'erreur indiquant que l'identifiant est requis est affiché")
     public void un_message_d_erreur_indiquant_que_l_identifiant_est_requis() {
         WebElement errorMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'Cin incorrect')]")));
@@ -218,22 +289,8 @@ public class AuthentificationEspaceEtudiant {
            // driver.quit();
       //  }
     //}
-    public static WebDriver getDriver() {
-        if (driver == null) {
-        	 System.setProperty("webdriver.chrome.driver", "C:\\Users\\NG\\Desktop\\screeshot\\chromedriver-win64\\chromedriver-win64\\chromedriver.exe");
-            driver = new ChromeDriver();
-        }
-        return driver;
-    }
 
-    public static void takeScreenshot(String filePath) {
-        File srcFile = ((TakesScreenshot) getDriver()).getScreenshotAs(OutputType.FILE);
-        try {
-            FileUtils.copyFile(srcFile, new File(filePath));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+   
     @After
     public void tearDown() {
         if (driver != null) {

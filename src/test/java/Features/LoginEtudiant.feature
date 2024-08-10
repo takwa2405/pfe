@@ -86,11 +86,13 @@ Feature: Authentification pour Espace Etudiant
     And le champ du mot de passe est affiché
    And je laisse le champ du mot de passe vide "<mdpvide>"
     And je clique sur le bouton de connexion
-    Then un message d'erreur indiquant que le mot de passe est requis est affiché
+    And un message d'erreur indiquant que le mot de passe est requis est affiché
+     Then une capture d'écran est générée de l'espace etudiant avec un identifiant valide et de mot de passe vide "<nomDefichierDeCapture6>"
+    
 
     Examples:
-      | identifiant11 | mdpvide |
-      | 191MTB1025    |         |
+      | identifiant11 | mdpvide |nomDefichierDeCapture6 |
+      | 191MTB1025    |         |captureEtudiantMotDePasseVide.png|
 
 
   @tag7
@@ -105,11 +107,12 @@ Feature: Authentification pour Espace Etudiant
     And je clique sur le bouton de connexion
     And l'utilisateur est redirigé vers son espace étudiant
     And je clique sur le bouton de déconnexion
-    Then l'utilisateur est déconnecté et redirigé vers la page de connexion
+    And l'utilisateur est déconnecté et redirigé vers la page de connexion
+     Then une capture d'écran est générée de l'espace etudiant avec un identifiant et mot de passe valides "<nomDefichierDeCapture7>"
 
     Examples:
-      | identifiantvalide | motdepassecorrecte |
-      | 191MTB1025        | arbrevert1234      |
+      | identifiantvalide | motdepassecorrecte |nomDefichierDeCapture7 |
+      | 191MTB1025        | arbrevert1234      |captureEtudiantIDvalide.png|
 
 
  

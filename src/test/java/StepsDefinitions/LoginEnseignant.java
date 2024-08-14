@@ -17,6 +17,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -27,24 +28,31 @@ public class LoginEnseignant {
 	
 	  private static WebDriver driver;
 	    private static WebDriverWait wait;
-
-	    @Given("Je suis sur la page d'accueil d'ESBonlineE")
-	    public void je_suis_sur_la_page_d_accueil_d_es_bonline_Enseignant() {
 	    
-	        System.setProperty("webdriver.chrome.driver","C:\\Users\\NG\\Desktop\\chromedriver-win64\\chromedriver.exe");
+	
+
+	    
+	    @Given("Je suis sur la page d'accueil d'ESBonlineE")
+	    public void je_suis_sur_la_page_d_accueil_d_es_bonline() throws Exception  {
+	    	 if (driver == null) {
+	    	 System.setProperty("webdriver.chrome.driver","C:\\Users\\NG\\Desktop\\ESBChrome\\chromedriver-win64\\chromedriver.exe");
+	        // Configurer les options pour Chrome
+	    	 
 	        ChromeOptions options = new ChromeOptions();
 	        options.addArguments("--disable-search-engine-choice-screen");
-
-	        driver = new ChromeDriver();
-	        wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+	        // Démarrer le navigateur Chrome avec les options spécifiées
+	        driver = new ChromeDriver(options);
+	        wait = new WebDriverWait(driver, Duration.ofSeconds(80));
 	        driver.get("http://192.168.0.21:7070/ESBOnline/Online/default.aspx");
+	 
 	    }
-	    
-
-	    @When("Je clique sur Enseignant {string}")
-	    public void je_clique_sur_Enseignant(String linkText1) {
-	        WebElement link = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(text(),'Espace Enseignants')]")));
-	        link.click();
+	    	
+	    }
+	    @When("Je clique sur Enseignants {string}")
+	    public void je_clique_sur_Enseignant(String linkText) {
+	    	 WebElement link = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(text(),'Espace Enseignants')]")));
+	         link.click();
+	      
 	    }
 
 	    @And("Une page d'authentification pour espace Enseignant s'affiche")
@@ -145,6 +153,7 @@ public class LoginEnseignant {
 	    public void tearDown() {
 	        if (driver != null) {
 	            driver.quit();  // Fermer tous les navigateurs et terminer la session WebDriver
+	            driver = null;  // Réinitialiser l'instance
 	        }
 
 	    }

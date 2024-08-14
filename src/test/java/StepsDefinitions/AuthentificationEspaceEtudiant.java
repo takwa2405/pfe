@@ -2,6 +2,7 @@ package StepsDefinitions;
 
 
 import org.junit.Assert;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -142,18 +143,16 @@ public class AuthentificationEspaceEtudiant {
         buttonSuivant.click();
     }
 
-    @And("Un message d'erreur indiquant que le compte est désactivé devrait s'afficher")
+    @And("Un message d'erreur indiquant que Veuillez régler votre situation financière !")
     public void un_message_d_erreur_indiquant_que_le_compte_est_désactivé_devrait_s_afficher() {
-        WebElement message = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@placeholder='Votre CIN ou ID']")));
-     // Get the actual placeholder attribute value
-        String actualPlaceholder = message.getAttribute("placeholder");
-
-        // Expected placeholder value
-        String expectedPlaceholder = "Votre CIN ou ID";
-
-        // Assert that the actual placeholder value matches the expected value
-        Assert.assertEquals(actualPlaceholder, expectedPlaceholder);
-    }
+    	 Alert alert = driver.switchTo().alert();
+         
+         // Vérifier si le texte de l'alerte correspond à ce que vous attendez
+         String alertText = alert.getText();
+         Assert.assertTrue(alertText.contains("Veuillez régler votre situation financière !"));
+         
+         // Accepter l'alerte pour la fermer
+         alert.accept();    }
 
     // Implémentez les étapes restantes en suivant le même modèle
 

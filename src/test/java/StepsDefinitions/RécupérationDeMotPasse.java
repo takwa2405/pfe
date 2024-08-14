@@ -223,9 +223,10 @@ public void genere_Capture_Decran(String nomDefichierDeCapture)
 
 @And("j'attends jusqu'à avoir le message de récupération")
 public void evoir_message_de_recup() {
-	  WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-      WebElement errorMessageBox = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"UniqueMessageBody_1\"]")));
-      assertNotNull(errorMessageBox);
+    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+    WebElement errorMessageBox = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'si_noreply@esprit.tn')]")));
+    assertNotNull(errorMessageBox);
+
 }
 @After
 public void tearDown() {

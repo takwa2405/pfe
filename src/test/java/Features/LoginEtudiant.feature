@@ -1,3 +1,4 @@
+
 @tag
 Feature: Authentification pour Espace Etudiant
   
@@ -8,9 +9,8 @@ Feature: Authentification pour Espace Etudiant
     And Une page d'authentification pour espace étudiant s'affiche
    And J'entre un identifiant "<identifiant6>" désactivé pour l'utilisateur
     And Je clique sur l'étape suivante
-    And Un message d'erreur indiquant que le compte est désactivé devrait s'afficher
+    And Un message d'erreur indiquant que Veuillez régler votre situation financière !
     Then une capture d'écran est générée de l'espace etudiant etudiant avec identifiant disactivé "<nomDefichierDeCapture1>"
-
     Examples:
       | identifiant6 |nomDefichierDeCapture1 |
       | 231MTB2134   | captureEtudiantdésactivé.png|

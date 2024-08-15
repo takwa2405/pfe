@@ -18,7 +18,7 @@ Feature: Authentification
   @tag2
   Scenario Outline: Authentification avec un identifiant incorrect
     Given Je suis sur la page d'accueil d'ESBonlineP
-    When Je clique sur le "<linkText>"
+      When Je clique sur le "<linkText>"
     And Une page d'authentification pour espace Parent s'affiche
     And J'entre un identifiant incorrectP "<identifiantIncoP>" pour l'utilisateur
      And je saisis un mot de passe correctP "<pswP>"

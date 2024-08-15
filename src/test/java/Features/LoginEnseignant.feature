@@ -6,7 +6,7 @@ Feature: Authentification pour Espace Enseignant
   @tag2
   Scenario: Authentification avec un identifiant incorrect
     Given Je suis sur la page d'accueil d'ESBonlineE
-    When Je clique sur Enseignant "Espace Enseignants"
+    When Je clique sur Enseignants "Espace Enseignants"
     And Une page d'authentification pour espace Enseignant s'affiche
     And J'entre un identifiant incorrect "<identifiant7E>" pour Enseignant
     And Je clique sur l'étape suivante Enseignant
@@ -21,7 +21,7 @@ Feature: Authentification pour Espace Enseignant
    @tag4
   Scenario: Authentification avec identifiant valide et un mot de passe incorrect
     Given Je suis sur la page d'accueil d'ESBonlineE
-    When Je clique sur Enseignant "Espace Enseignants"
+    When Je clique sur Enseignants "Espace Enseignants"
     And Une page d'authentification pour espace Enseignant s'affiche
     And J'entre un identifiant valide pour Enseignant "<identifiant9E>"
     And Je clique sur l'étape suivante Enseignant
@@ -37,7 +37,7 @@ Feature: Authentification pour Espace Enseignant
    @tag5  
   Scenario: je saisis un identifiant vide enseignant 
     Given Je suis sur la page d'accueil d'ESBonlineE
-    When Je clique sur Enseignant "Espace Enseignants"
+    When Je clique sur Enseignants "Espace Enseignants"
     And Une page d'authentification pour espace Enseignant s'affiche
     And Je clique sur l'étape suivante Enseignant
     Then revien au page connexion et affiche identifiant incorrect 
@@ -49,7 +49,7 @@ Feature: Authentification pour Espace Enseignant
  @tag6
   Scenario: Authentification avec un identifiant valide et de mot de passe vide
    Given Je suis sur la page d'accueil d'ESBonlineE
-    When Je clique sur Enseignant "Espace Enseignants"
+    When Je clique sur Enseignants "Espace Enseignants"
      And Une page d'authentification pour espace Enseignant s'affiche
      And J'entre un identifiant valide pour Enseignant "<identifiant9E>"
     And Je clique sur l'étape suivante Enseignant

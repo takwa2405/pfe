@@ -8,6 +8,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -23,8 +24,14 @@ public class LoginParent {
 
 	    @Given("Je suis sur la page d'accueil d'ESBonlineP")
 	    public void je_suis_sur_la_page_d_accueil_d_es_bonlineP() {
-	        System.setProperty("webdriver.chrome.driver", "C:\\Users\\NG\\Desktop\\takwa\\chromedriver-win64\\chromedriver-win64\\chromedriver.exe");
-	        driver = new ChromeDriver();
+	       
+	   	 System.setProperty("webdriver.chrome.driver","C:\\Users\\NG\\Desktop\\ESBChrome\\chromedriver-win64\\chromedriver.exe");
+	        // Configurer les options pour Chrome
+	        ChromeOptions options = new ChromeOptions();
+	        options.addArguments("--disable-search-engine-choice-screen");
+
+	        // Démarrer le navigateur Chrome avec les options spécifiées
+	        driver = new ChromeDriver(options);
 	        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 	        driver.get("http://192.168.0.21:7070/ESBOnline/Online/default.aspx");
 	    }
@@ -36,9 +43,7 @@ public class LoginParent {
 	        link.click();
 	    }
 
-	   
-
-	   
+	  
 
 	    @And("Une page d'authentification pour espace Parent s'affiche")
 	    public void une_page_d_authentification_pour_espace_etudiant_s_affiche() {
@@ -100,8 +105,6 @@ public class LoginParent {
 	    	    Assert.assertTrue(userDashboard.isDisplayed());
 	     }
 	    
-	  
-	    
 	    @Then("message d'erreur verifier vos parametres")
 	    public void un_message_d_erreur_indiquant_que_l_identifiant_est_incorrect() {
 	    	 
@@ -121,6 +124,13 @@ public class LoginParent {
 	        WebElement errorMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"ContentPlaceHolder1_RequiredFieldValidator4\"]")));
 	  
 	        Assert.assertEquals("Cin incorrect", errorMessage.getText());   
+	    }
+	    @After
+	    public void tearDown() {
+	        if (driver != null) {
+	            driver.quit();  // Fermer tous les navigateurs et terminer la session WebDriver
+	        }
+
 	    }
 	    
 	   }

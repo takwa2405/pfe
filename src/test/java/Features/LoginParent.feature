@@ -2,7 +2,7 @@ Feature: Authentification
 
  Feature: Authentification
 
-  @tag1
+  @tag12
   Scenario Outline: Authentification avec un identifiant avec des espaces au début
     Given Je suis sur la page d'accueil d'ESBonlineP
     When Je clique sur le "<linkText>"
@@ -15,7 +15,7 @@ Feature: Authentification
       | identifiantP    |pswP               |linkText     |
       |    34104052     | 34104052          |Espace Parent|
 
-  @tag2
+  @tag13
   Scenario Outline: Authentification avec un identifiant incorrect
     Given Je suis sur la page d'accueil d'ESBonlineP
       When Je clique sur le "<linkText>"
@@ -29,7 +29,7 @@ Feature: Authentification
     | identifiantIncoP    | pswP              |
     | 19100kft01025       | 34104052          |
     
-    @tag3
+    @tag14
   Scenario Outline: Authentification avec identifiant valide et un mot de passe incorrect
      Given Je suis sur la page d'accueil d'ESBonlineP
     When Je clique sur le "<linkText>"
@@ -44,7 +44,7 @@ Feature: Authentification
       | 34104052           | rtyuarbrevert1234   |
     
     
-  @tag5
+  @tag15
   Scenario Outline: Authentification avec un identifiant vide
      Given Je suis sur la page d'accueil d'ESBonlineP
     When Je clique sur le "<linkText>"
@@ -57,7 +57,7 @@ Feature: Authentification
       |                 | 34104052     |
       
       
- @tag6
+ @tag16
   Scenario Outline: Authentification avec un identifiant valide et de mot de passe vide
   Given Je suis sur la page d'accueil d'ESBonlineP
     When Je clique sur le "<linkText>"
@@ -69,9 +69,8 @@ Feature: Authentification
       | identifiantvalideP |
       | 34104052           | 
       
- @tag7
+ @tag17
   Scenario Outline: Authentification avec un identifiant et mot de passe valides
-    Scenario Outline: Authentification des un identifiants valide 
     Given Je suis sur la page d'accueil d'ESBonlineP
     When Je clique sur le "<linkText>"
     And Une page d'authentification pour espace Parent s'affiche

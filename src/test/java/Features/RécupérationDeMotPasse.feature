@@ -2,8 +2,8 @@
      @tag
 Feature: Récupération du mot de passe et ouverture d'email sur Outlook
 
-  @tag1
-  Scenario: Récupération de mot de passe pour un utilisateur et ouverture de l'email sur Outlook
+  @tag18
+ Scenario Outline: Récupération de mot de passe pour un utilisateur et ouverture de l'email sur Outlook
     Given Je suis sur la page d'accueil d'ESBonlineRCM
     When Une page d'authentification pour espace étudiant s'afficheRCM
     And J'entre un identifiant "<identifiantvalide>" valide1 pour l'utilisateur
@@ -30,16 +30,16 @@ Feature: Récupération du mot de passe et ouverture d'email sur Outlook
      
      
      
-  @tag3
- Scenario: Récupération de mot de passe pour un email invalide
+  @tag19
+Scenario Outline: Récupération de mot de passe pour un email invalide
 
-     Given Je suis sur la page d'accueil d'ESBonlineRCM
-      And J'entre un identifiant "<identifiantvalide>" valide1 pour l'utilisateur
-      And Je clique sur l'étape suivanteRCM
-      And L'utilisateur clique sur Mot de passe oublie
+      Given Je suis sur la page d'accueil d'ESBonlineRCM
+       And J'entre un identifiant "<identifiantvalide>" valide1 pour l'utilisateur
+       And Je clique sur l'étape suivanteRCM
+       And L'utilisateur clique sur Mot de passe oublie
        And L'utilisateur entre son adresse e-mailinvalide "<emailinvalide>"
-    And Je clique sur Récupérer mot de passe
-    Then Un message d'erreur doit s'afficher
+       And Je clique sur Récupérer mot de passe
+      Then Un message d'erreur doit s'afficher
 
  
     Examples:

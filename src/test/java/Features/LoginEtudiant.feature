@@ -3,7 +3,7 @@
 Feature: Authentification pour Espace Etudiant
   
   @tag1
-  Scenario: Authentification avec un identifiant désactivé
+Scenario Outline: Authentification avec un identifiant désactivé
     Given Je suis sur la page d'accueil d'ESBonline
     When Je clique sur "Espace Etudiants"
     And Une page d'authentification pour espace étudiant s'affiche
@@ -16,8 +16,8 @@ Feature: Authentification pour Espace Etudiant
       | 231MTB2134   | captureEtudiantdésactivé.png|
                        
 
-  @tag2
-  Scenario: Authentification avec un identifiant incorrect
+ @tag2
+  Scenario Outline: Authentification avec un identifiant incorrect
     Given Je suis sur la page d'accueil d'ESBonline
     When Je clique sur "Espace Etudiants"
     And Une page d'authentification pour espace étudiant s'affiche
@@ -31,7 +31,7 @@ Feature: Authentification pour Espace Etudiant
       | 183JFT0092   |captureEtudiantIncorrect.png|
 
   @tag3
-  Scenario: Authentification avec un identifiant invalide
+ Scenario Outline: Authentification avec un identifiant invalide
   Given Je suis sur la page d'accueil d'ESBonline
     When Je clique sur "Espace Etudiants"
     And Une page d'authentification pour espace étudiant s'affiche
@@ -45,7 +45,7 @@ Feature: Authentification pour Espace Etudiant
       | 1910001025    |captureEtudiantInvalide.png|
 
   @tag4
-  Scenario: Authentification avec identifiant valide et un mot de passe incorrect
+ Scenario Outline: Authentification avec identifiant valide et un mot de passe incorrect
     Given Je suis sur la page d'accueil d'ESBonline
     When Je clique sur "Espace Etudiants"
      And Une page d'authentification pour espace étudiant s'affiche
@@ -64,7 +64,7 @@ Feature: Authentification pour Espace Etudiant
       
 
   @tag5
-  Scenario: Authentification avec un identifiant vide
+Scenario Outline: Authentification avec un identifiant vide
     Given Je suis sur la page d'accueil d'ESBonline
     When Je clique sur "Espace Etudiants"
      And Une page d'authentification pour espace étudiant s'affiche
@@ -77,7 +77,7 @@ Feature: Authentification pour Espace Etudiant
       |                  |captureEtudiantIdentifiantVide.png|
 
   @tag6
-  Scenario: Authentification avec un identifiant valide et de mot de passe vide
+ Scenario Outline: Authentification avec un identifiant valide et de mot de passe vide
    Given Je suis sur la page d'accueil d'ESBonline
     When Je clique sur "Espace Etudiants"
      And Une page d'authentification pour espace étudiant s'affiche
@@ -96,7 +96,7 @@ Feature: Authentification pour Espace Etudiant
 
 
   @tag7
-  Scenario: Authentification avec un identifiant et mot de passe valides
+ Scenario Outline: Authentification avec un identifiant et mot de passe valides
     Given Je suis sur la page d'accueil d'ESBonline
     When Je clique sur "Espace Etudiants"
      And Une page d'authentification pour espace étudiant s'affiche

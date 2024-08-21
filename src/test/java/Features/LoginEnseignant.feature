@@ -3,8 +3,8 @@ Feature: Authentification pour Espace Enseignant
   
  
 
-  @tag2
-  Scenario: Authentification avec un identifiant incorrect
+  @tag8
+  Scenario Outline: Authentification avec un identifiant incorrect
     Given Je suis sur la page d'accueil d'ESBonlineE
     When Je clique sur Enseignants "Espace Enseignants"
     And Une page d'authentification pour espace Enseignant s'affiche
@@ -18,8 +18,8 @@ Feature: Authentification pour Espace Enseignant
       | identifiant7E  |pswPE        |
       | V0509-22       | V-0509-22   |
       
-   @tag4
-  Scenario: Authentification avec identifiant valide et un mot de passe incorrect
+   @tag9
+Scenario Outline: Authentification avec identifiant valide et un mot de passe incorrect
     Given Je suis sur la page d'accueil d'ESBonlineE
     When Je clique sur Enseignants "Espace Enseignants"
     And Une page d'authentification pour espace Enseignant s'affiche
@@ -29,13 +29,14 @@ Feature: Authentification pour Espace Enseignant
     And je saisis un mot de passe incorrect Enseignant "<motdepasseincorrectE>"
    And je clique sur le bouton de connexion Enseignant  
    Then revien au page connexion enseignant
+   
       Examples:
       | identifiant9E | motdepasseincorrectE |
       | V-0509-22     | V-0509-22A           |
     
      
-   @tag5  
-  Scenario: je saisis un identifiant vide enseignant 
+   @tag10
+ Scenario Outline: je saisis un identifiant vide enseignant 
     Given Je suis sur la page d'accueil d'ESBonlineE
     When Je clique sur Enseignants "Espace Enseignants"
     And Une page d'authentification pour espace Enseignant s'affiche
@@ -46,8 +47,8 @@ Feature: Authentification pour Espace Enseignant
       |                | V-0509-22   |
   
        
- @tag6
-  Scenario: Authentification avec un identifiant valide et de mot de passe vide
+ @tag11
+  Scenario Outline: Authentification avec un identifiant valide et de mot de passe vide
    Given Je suis sur la page d'accueil d'ESBonlineE
     When Je clique sur Enseignants "Espace Enseignants"
      And Une page d'authentification pour espace Enseignant s'affiche

@@ -19,21 +19,13 @@ import io.cucumber.java.en.When;
 
 public class LoginParent { 
 
-	 private static WebDriver driver;
-	 private static WebDriverWait wait;
-
+	private WebDriver driver = Hooks.driver;
+    private WebDriverWait wait = Hooks.wait;
+	 
 	    @Given("Je suis sur la page d'accueil d'ESBonlineP")
 	    public void je_suis_sur_la_page_d_accueil_d_es_bonlineP() {
 	       
-	   	 System.setProperty("webdriver.chrome.driver","C:\\Users\\NG\\Desktop\\ESBChrome\\chromedriver-win64\\chromedriver.exe");
-	        // Configurer les options pour Chrome
-	        ChromeOptions options = new ChromeOptions();
-	        options.addArguments("--disable-search-engine-choice-screen");
-
-	        // Démarrer le navigateur Chrome avec les options spécifiées
-	        driver = new ChromeDriver(options);
-	        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-	        driver.get("http://192.168.0.21:7070/ESBOnline/Online/default.aspx");
+	  
 	    }
 
 
@@ -125,12 +117,7 @@ public class LoginParent {
 	  
 	        Assert.assertEquals("Cin incorrect", errorMessage.getText());   
 	    }
-	    @After
-	    public void tearDown() {
-	        if (driver != null) {
-	            driver.quit();  // Fermer tous les navigateurs et terminer la session WebDriver
-	        }
-
-	    }
+	    
+	    
 	    
 	   }

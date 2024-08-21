@@ -18,6 +18,7 @@ import java.io.File;
 import java.time.Duration;
 
 import io.cucumber.java.After;
+import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -29,40 +30,47 @@ import org.apache.commons.io.FileUtils;
 
 import java.io.IOException;
 
-public class AuthentificationEspaceEtudiant {
+
+public class AuthentificationEspaceEtudiant  {
 	
 
-    private static WebDriver driver;
-    private static WebDriverWait wait;
-
-    
-    @Given("Je suis sur la page d'accueil d'ESBonline")
-    public void je_suis_sur_la_page_d_accueil_d_es_bonline() throws Exception  {
-    	 if (driver == null) {
-    	 System.setProperty("webdriver.chrome.driver","C:\\Users\\NG\\Desktop\\ESBChrome\\chromedriver-win64\\chromedriver.exe");
-        // Configurer les options pour Chrome
-    	 
+	private WebDriver driver =Hooks.driver;
+    private WebDriverWait wait = Hooks.wait;
+	    
+  /*  @Before
+    public  void setUp() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--disable-search-engine-choice-screen");
-        // Démarrer le navigateur Chrome avec les options spécifiées
         driver = new ChromeDriver(options);
         wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         driver.get("http://192.168.0.21:7070/ESBOnline/Online/default.aspx");
+        driver.manage().window().maximize();
+    }*/
+    @Given("Je suis sur la page d'accueil d'ESBonline")
+    public void je_suis_sur_la_page_d_accueil_d_es_bonline() throws Exception  {
+    	
+    	
+    	 //System.setProperty("webdriver.chrome.driver","C:\\Users\\NG\\Desktop\\ESBChrome\\chromedriver-win64\\chromedriver.exe");
+        // Configurer les options pour Chrome
+    	 
+       
  
-    }
+    
     	 }
 
     @When("Je clique sur {string}")
     public void je_clique_sur(String linkText) {
         WebElement link = wait.until(ExpectedConditions.elementToBeClickable(By.linkText(linkText)));
         link.click();
+        
+        
     }
 
     @And("Une page d'authentification pour espace étudiant s'affiche")
     public void une_page_d_authentification_pour_espace_etudiant_s_affiche() throws InterruptedException {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ContentPlaceHolder1_TextBox3")));
         Assert.assertTrue(driver.findElement(By.id("ContentPlaceHolder1_TextBox3")).isDisplayed());
-        Thread.sleep(5000);
+     
     }
 
   
@@ -70,7 +78,7 @@ public class AuthentificationEspaceEtudiant {
     public void j_entre_un_identifiant_désactivé_pour_l_utilisateur(String identifiant6) throws InterruptedException {
         WebElement inputIdentifiant = driver.findElement(By.id("ContentPlaceHolder1_TextBox3"));
         inputIdentifiant.sendKeys(identifiant6);
-        Thread.sleep(5000);
+        
         
     }
     @And("J'entre un identifiant incorrect {string} pour l'utilisateur")
@@ -98,7 +106,7 @@ public class AuthentificationEspaceEtudiant {
     public void je_saisis_un_identifiant_invalide(String identifiant8) throws InterruptedException {
         WebElement inputIdentifiant = driver.findElement(By.id("ContentPlaceHolder1_TextBox3"));
         inputIdentifiant.sendKeys(identifiant8);
-        Thread.sleep(5000); // Utilisation de Thread.sleep pour simulation, à éviter dans les tests réels
+        // Utilisation de Thread.sleep pour simulation, à éviter dans les tests réels
     }
     @Then("une capture d'écran est générée de l'espace etudiant etudiant avec identifiant invalide {string}")
     public void genere_Capture_Decran_pour_espace_etudiant_identifiantInvalide(String nomDefichierDeCapture3)
@@ -118,7 +126,7 @@ public class AuthentificationEspaceEtudiant {
     public void je_saisis_un_identifiant_vide(String identifiantvide) throws InterruptedException {
         WebElement inputIdentifiant = driver.findElement(By.id("ContentPlaceHolder1_TextBox3"));
         inputIdentifiant.sendKeys(identifiantvide);
-        Thread.sleep(5000); // Utilisation de Thread.sleep pour simulation, à éviter dans les tests réels
+        // Utilisation de Thread.sleep pour simulation, à éviter dans les tests réels
     }
     @Then("une capture d'écran est générée de l'espace etudiant etudiant identifiant vide {string}")
     public void genere_Capture_Decran_pour_espace_etudiant_identifiantvide(String nomDefichierDeCapture5)
@@ -314,11 +322,5 @@ public class AuthentificationEspaceEtudiant {
     //}
 
    
-    @After
-    public void tearDown() {
-        if (driver != null) {
-            driver.quit();  // Fermer tous les navigateurs et terminer la session WebDriver
-            driver = null;  // Réinitialiser l'instance
-        }
-    }
+    
 }

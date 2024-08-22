@@ -124,13 +124,30 @@ public class LoginParent {
 	        Assert.assertEquals("Erreur du serveur dans l'application '/ESBOnline'.", errorMessage.getText());
 	    }
 	    
+	    
 	    @Then("un message d'erreur indiquant que cin incorrect")
 	    public void un_message_d_erreur_indiquant_que_l_identifiant_est_requis() {
 	        WebElement errorMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"ContentPlaceHolder1_RequiredFieldValidator4\"]")));
 	  
 	        Assert.assertEquals("Cin incorrect", errorMessage.getText());   
 	    }
+	    @Then("un message d'erreur verifier vos parametres")
+	    public void un_message_d_erreur_indiquant_que_l_motdepasse_est_incorrect() {
+	    	 
+	    	try {
+	            // Attendre jusqu'à 10 secondes pour que l'alerte soit présente
+	            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+	            Alert alert = wait.until(ExpectedConditions.alertIsPresent());
+	            
+	            // Vérifier que le texte de l'alerte contient "Verifier vos paramètres."
+	            Assert.assertTrue(alert.getText().contains("Verifier vos paramètres."));
+	            
+	            // Accepter (fermer) l'alerte
+	            alert.accept();
+	        } catch (TimeoutException | NoAlertPresentException e) {
+	            System.out.println("Aucune alerte n'est apparue dans le délai imparti ou l'alerte n'était pas présente.");
+	            Assert.fail("Aucune alerte trouvée.");
+	        }
 	    
 	    
-	    
-	   }
+	    }}

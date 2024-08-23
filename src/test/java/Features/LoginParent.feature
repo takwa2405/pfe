@@ -37,7 +37,7 @@ Feature: Authentification
        And J'entre un identifiant valide "<identifiantvalideP>"
        And  je saisis un mot de passe incorrectP "<motdepasseincorrectP>"
        And je clique sur le bouton de connexion suivant
-    Then  message d'erreur verifier vos parametres
+    Then un message d'erreur verifier vos parametres
     
     Examples:
       | identifiantvalideP | motdepasseincorrectP |
@@ -64,7 +64,7 @@ Feature: Authentification
     And Une page d'authentification pour espace Parent s'affiche
      And J'entre un identifiant valide "<identifiantvalideP>"
       And je clique sur le bouton de connexion suivant
-    Then   message d'erreur verifier vos parametres
+    Then message d'erreur verifier vos parametres
     Examples:
       | identifiantvalideP |
       | 34104052           | 

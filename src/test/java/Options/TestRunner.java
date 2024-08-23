@@ -9,7 +9,7 @@ import io.cucumber.junit.CucumberOptions;
 
 @CucumberOptions(
 
-		features = "src\\test\\java\\Features", 
+		features = "src/test/java/Features/LoginEnseignant.feature", 
 
          glue = "StepsDefinitions",
 
@@ -22,5 +22,5 @@ import io.cucumber.junit.CucumberOptions;
 public class TestRunner {
 	
 	
-
+	
 }

@@ -14,8 +14,8 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.7</maven.compiler.source>
-    <maven.compiler.target>1.7</maven.compiler.target>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
 
   <dependencies>
@@ -44,7 +44,7 @@
     <dependency>
       <groupId>net.masterthought</groupId>
       <artifactId>cucumber-reporting</artifactId>
-      <version>5.7.8</version>
+      <version>5.8.2</version>
     </dependency>
     <dependency>
       <groupId>io.rest-assured</groupId>
@@ -59,33 +59,33 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>3.4.0</version>
+        <version>3.2.5</version>
         <configuration>
           <testFailureIgnore>true</testFailureIgnore>
         </configuration>
       </plugin>
-     <plugin>
-    <groupId>net.masterthought</groupId>
-    <artifactId>maven-cucumber-reporting</artifactId>
-    <version>5.7.8</version>
-    <executions>
-        <execution>
-            <id>generate-cucumber-report</id>
+      <plugin>
+        <groupId>net.masterthought</groupId>
+        <artifactId>maven-cucumber-reporting</artifactId>
+        <version>5.8.2</version>
+        <executions>
+          <execution>
+            <id>generate-cucumber-reports</id>
             <phase>verify</phase>
             <goals>
-                <goal>generate</goal>
+              <goal>generate</goal>
             </goals>
             <configuration>
-                <projectName>CucumberWebGui</projectName>
-                <outputDirectory>${project.build.directory}/cucumber-report-html</outputDirectory>
-                <jsonFiles>
-                    <jsonFile>${project.build.directory}/cucumber.json</jsonFile>
-                </jsonFiles>
-            </configuration>
-        </execution>
-    </executions>
-</plugin>
-
+                            <projectName>BDDESB</projectName>
+                            <outputDirectory>${project.build.directory}</outputDirectory>
+                        	<inputDirectory>${project.build.directory}</inputDirectory>
+                            <jsonFiles>
+                                <jsonFile>**/*.json</jsonFile>
+                            </jsonFiles>
+                        </configuration>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
 </project>

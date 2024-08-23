@@ -9,7 +9,7 @@ import io.cucumber.junit.CucumberOptions;
 
 @CucumberOptions(
 
-		features = "src/test/java/Features/LoginEnseignant.feature", 
+		features = "src/test/java/Features", 
 
          glue = "StepsDefinitions",
 

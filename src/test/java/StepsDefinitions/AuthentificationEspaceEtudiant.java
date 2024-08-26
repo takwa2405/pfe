@@ -37,7 +37,7 @@ public class AuthentificationEspaceEtudiant  {
 	private WebDriver driver =Hooks.driver;
     private WebDriverWait wait = Hooks.wait;
    
-    // locators
+    // locators Etudiant
     private final By userNamelocator    = By.id("ContentPlaceHolder1_TextBox3") ;
     private final By bottunNextLocator  = By.id("ContentPlaceHolder1_Button3");
     private final By msgIdentIncorrctLocator = By.xpath("//h1[contains(text(),'Erreur du serveur')]");   

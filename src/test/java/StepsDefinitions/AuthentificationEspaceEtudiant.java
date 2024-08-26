@@ -158,17 +158,16 @@ public class AuthentificationEspaceEtudiant  {
 
     @And("Un message d'erreur indiquant que Veuillez régler votre situation financière !")
     public void un_message_d_erreur_indiquant_que_le_compte_est_désactivé_devrait_s_afficher() {
-    	 Alert alert = driver.switchTo().alert();
-         
-         // Vérifier si le texte de l'alerte correspond à ce que vous attendez
-         String alertText = alert.getText();
-         Assert.assertTrue(alertText.contains("Veuillez régler votre situation financière !"));
-         
-         // Accepter l'alerte pour la fermer
-         alert.accept();    }
-
-    // Implémentez les étapes restantes en suivant le même modèle
-
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        Alert alert = wait.until(ExpectedConditions.alertIsPresent());
+        
+        // Vérifier si le texte de l'alerte correspond à ce que vous attendez
+        String alertText = alert.getText();
+        Assert.assertTrue(alertText.contains("Veuillez régler votre situation financière !"));
+        
+        // Accepter l'alerte pour la fermer
+        alert.accept();
+    }
   
     @And("Un message d'erreur indiquant que l'identifiant est incorrect devrait s'afficher")
     public void un_message_d_erreur_indiquant_que_l_identifiant_est_incorrect_devrait_s_afficher() {

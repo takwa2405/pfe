@@ -120,9 +120,9 @@ public class RécupérationDeMotPasse {
     }
 
     @When("L'utilisateur entre son adresse e-mailinvalide {string}")
-    public void entre_adresse_emailinvalide(String email) {
+    public void entre_adresse_emailinvalide(String  emailinvalide) {
         WebElement emailField = driver.findElement(By.id("ContentPlaceHolder1_Adresse_mail_esp"));
-        emailField.sendKeys(email);
+        emailField.sendKeys( emailinvalide);
     }
 
     @And("Je clique sur Récupérer mot de passe")

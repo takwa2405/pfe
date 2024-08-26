@@ -37,13 +37,18 @@ jobs:
     - name: Install project dependencies
       run: mvn install -DskipTests
 
-    - name: Run tests
+    - name: Run tests and generate Cucumber Reports
       env:
         DISPLAY: :99
       run: |
         Xvfb :99 -ac &
-        mvn verify
+        mvn clean verify -Dcucumber.options="--plugin json:target/cucumber.json" net.masterthought:maven-cucumber-reporting:generate
 
-    - name: Generate Cucumber Reports
-      if: success() # Exécute cette étape uniquement si les étapes précédentes réussissent
-      run: mvn net.masterthought:maven-cucumber-reporting:generate
+    - name: List target directory contents
+      run: ls -la target/
+
+    - name: Archive Test Results
+      uses: actions/upload-artifact@v2
+      with:
+        name: test-results
+        path: target/cucumber.json

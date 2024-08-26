@@ -36,16 +36,21 @@ public class AuthentificationEspaceEtudiant  {
 
 	private WebDriver driver =Hooks.driver;
     private WebDriverWait wait = Hooks.wait;
-	    
-  /*  @Before
-    public  void setUp() {
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--disable-search-engine-choice-screen");
-        driver = new ChromeDriver(options);
-        wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-        driver.get("http://192.168.0.21:7070/ESBOnline/Online/default.aspx");
-        driver.manage().window().maximize();
-    }*/
+   
+    // locators
+    private final By userNamelocator    = By.id("ContentPlaceHolder1_TextBox3") ;
+    private final By bottunNextLocator  = By.id("ContentPlaceHolder1_Button3");
+    private final By msgIdentIncorrctLocator = By.xpath("//h1[contains(text(),'Erreur du serveur')]");   
+    private final By  msgIdentifInvalidLOcators =By.id("ContentPlaceHolder1_LabelError");
+    private final By passwordLocator  =By.id("ContentPlaceHolder1_TextBox7");
+    private final By bottonConnexionLocator   = By.id("ContentPlaceHolder1_ButtonEtudiant");
+    private final By  pageAccuielEtudiantLocator=By.xpath("//h2[contains(text(),'Bienvenue dans votre Espace')]");
+    private final By buttonLogoutLocator   =By.id("LinkButton1");
+    private final By pageAuthentLocator=By.xpath("//p[contains(text(),'Cette page donne')]");
+    private final By  MsgPasswordRequisLocator= By.id("ContentPlaceHolder1_RequiredFieldValidator7");
+    private final By  msgIdentifiantRequisLocator = By.xpath("//span[contains(text(),'Cin incorrect')]");
+    
+    
     @Given("Je suis sur la page d'accueil d'ESBonline")
     public void je_suis_sur_la_page_d_accueil_d_es_bonline() throws Exception  {
     	
@@ -68,22 +73,22 @@ public class AuthentificationEspaceEtudiant  {
 
     @And("Une page d'authentification pour espace étudiant s'affiche")
     public void une_page_d_authentification_pour_espace_etudiant_s_affiche() throws InterruptedException {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ContentPlaceHolder1_TextBox3")));
-        Assert.assertTrue(driver.findElement(By.id("ContentPlaceHolder1_TextBox3")).isDisplayed());
+        wait.until(ExpectedConditions.visibilityOfElementLocated(userNamelocator));
+        Assert.assertTrue(driver.findElement(userNamelocator).isDisplayed());
      
     }
 
   
     @And("J'entre un identifiant {string} désactivé pour l'utilisateur")
     public void j_entre_un_identifiant_désactivé_pour_l_utilisateur(String identifiant6) throws InterruptedException {
-        WebElement inputIdentifiant = driver.findElement(By.id("ContentPlaceHolder1_TextBox3"));
+        WebElement inputIdentifiant = driver.findElement(userNamelocator);
         inputIdentifiant.sendKeys(identifiant6);
         
         
     }
     @And("J'entre un identifiant incorrect {string} pour l'utilisateur")
     public void j_entre_un_identifiant_pour_l_utilisateur(String identifiant7) {
-        WebElement inputIdentifiant = driver.findElement(By.id("ContentPlaceHolder1_TextBox3"));
+        WebElement inputIdentifiant = driver.findElement( userNamelocator);
         inputIdentifiant.sendKeys(identifiant7);
     }
     
@@ -104,7 +109,7 @@ public class AuthentificationEspaceEtudiant  {
 
     @And("je saisis un identifiant invalide {string}")
     public void je_saisis_un_identifiant_invalide(String identifiant8) throws InterruptedException {
-        WebElement inputIdentifiant = driver.findElement(By.id("ContentPlaceHolder1_TextBox3"));
+        WebElement inputIdentifiant = driver.findElement( userNamelocator);
         inputIdentifiant.sendKeys(identifiant8);
         // Utilisation de Thread.sleep pour simulation, à éviter dans les tests réels
     }
@@ -124,7 +129,7 @@ public class AuthentificationEspaceEtudiant  {
     }
     @And(" je saisis un identifiant  vide {string}")
     public void je_saisis_un_identifiant_vide(String identifiantvide) throws InterruptedException {
-        WebElement inputIdentifiant = driver.findElement(By.id("ContentPlaceHolder1_TextBox3"));
+        WebElement inputIdentifiant = driver.findElement( userNamelocator);
         inputIdentifiant.sendKeys(identifiantvide);
         // Utilisation de Thread.sleep pour simulation, à éviter dans les tests réels
     }
@@ -147,7 +152,7 @@ public class AuthentificationEspaceEtudiant  {
 
     @And("Je clique sur l'étape suivante")
     public void je_clique_sur_l_étape_suivante() {
-        WebElement buttonSuivant = driver.findElement(By.id("ContentPlaceHolder1_Button3"));
+        WebElement buttonSuivant = driver.findElement(bottunNextLocator);
         buttonSuivant.click();
     }
 
@@ -167,7 +172,7 @@ public class AuthentificationEspaceEtudiant  {
   
     @And("Un message d'erreur indiquant que l'identifiant est incorrect devrait s'afficher")
     public void un_message_d_erreur_indiquant_que_l_identifiant_est_incorrect_devrait_s_afficher() {
-        WebElement errorMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h1[contains(text(),'Erreur du serveur')]")));
+        WebElement errorMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(msgIdentIncorrctLocator));
   
         Assert.assertEquals("Erreur du serveur dans l'application '/ESBOnline'.", errorMessage.getText());
     }
@@ -177,7 +182,7 @@ public class AuthentificationEspaceEtudiant  {
 
     @And("un message d'erreur indiquant que l'identifiant est invalide est affiché")
     public void un_message_d_erreur_indiquant_que_l_identifiant_est_invalide_est_affiché() {
-        WebElement errorMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ContentPlaceHolder1_LabelError")));
+        WebElement errorMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(msgIdentifInvalidLOcators));
         Assert.assertTrue(errorMessage.isDisplayed());
         String expectedErrorMessage = "identifiant invalide"; // Vérifiez le texte exact attendu
         Assert.assertEquals(expectedErrorMessage, errorMessage.getText());
@@ -185,24 +190,24 @@ public class AuthentificationEspaceEtudiant  {
 
     @And("je saisis un identifiant  valide de l'utilisateur {string}")
     public void je_saisis_l_identifiant_de_l_utilisateur(String identifiant9) {
-        WebElement inputIdentifiant = driver.findElement(By.id("ContentPlaceHolder1_TextBox3"));
+        WebElement inputIdentifiant = driver.findElement(userNamelocator);
         inputIdentifiant.sendKeys(identifiant9);
     }
 
     @And("le champ du mot de passe est affiché")
     public void le_champ_du_mot_de_passe_est_affiché() {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ContentPlaceHolder1_TextBox7")));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(passwordLocator));
     }
 
     @And("je saisis un mot de passe incorrect {string}")
     public void je_saisis_un_mot_de_passe_incorrect(String motdepasseincorrect) {
-        WebElement inputMotDePasse = driver.findElement(By.id("ContentPlaceHolder1_TextBox7"));
+        WebElement inputMotDePasse = driver.findElement(passwordLocator);
         inputMotDePasse.sendKeys(motdepasseincorrect);
          
     }
     @And("je laisse le champ du mot de passe vide {string}")
     public void je_saisis_un_mot_de_passe_vide(String mdpvide) {
-        WebElement inputMotDePasse = driver.findElement(By.id("ContentPlaceHolder1_TextBox7"));
+        WebElement inputMotDePasse = driver.findElement(passwordLocator);
         inputMotDePasse.sendKeys(mdpvide);
     }
     @Then("une capture d'écran est générée de l'espace etudiant avec un identifiant valide et de mot de passe vide {string}")
@@ -221,20 +226,20 @@ public class AuthentificationEspaceEtudiant  {
     	}
     @And("je saisis un  mot de passe  valide {string}")
     public void je_saisis_un_mot_de_passe_valide(String motdepassecorrecte) {
-        WebElement inputMotDePasse = driver.findElement(By.id("ContentPlaceHolder1_TextBox7"));
+        WebElement inputMotDePasse = driver.findElement(passwordLocator);
         inputMotDePasse.sendKeys(motdepassecorrecte);
     }
 
     @And("je clique sur le bouton de connexion")
     public void je_clique_sur_le_bouton_de_connexion() {
-        WebElement buttonConnexion = driver.findElement(By.id("ContentPlaceHolder1_ButtonEtudiant"));
+        WebElement buttonConnexion = driver.findElement(bottonConnexionLocator);
         buttonConnexion.click();
     }
 
     @And("l'utilisateur est redirigé vers son espace étudiant")
     public void l_utilisateur_est_redirigé_vers_son_espace_étudiant() {
     	 
-    	  WebElement userDashboard = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h2[contains(text(),'Bienvenue dans votre Espace')]")));
+    	  WebElement userDashboard = wait.until(ExpectedConditions.visibilityOfElementLocated(pageAccuielEtudiantLocator));
     	    
     	    Assert.assertTrue(userDashboard.isDisplayed());
      }
@@ -256,13 +261,13 @@ public class AuthentificationEspaceEtudiant  {
     
     @And("je clique sur le bouton de déconnexion")
     public void je_clique_sur_le_bouton_de_déconnexion() {
-        WebElement logoutButton = driver.findElement(By.id("LinkButton1"));
+        WebElement logoutButton = driver.findElement(buttonLogoutLocator);
         logoutButton.click();
     }
 
     @Then("l'utilisateur est déconnecté et redirigé vers la page de connexion")
     public void l_utilisateur_est_déconnecté_et_redirigé_vers_la_page_de_connexion() {
-        WebElement loginPage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'Cette page donne')]")));
+        WebElement loginPage = wait.until(ExpectedConditions.visibilityOfElementLocated(pageAuthentLocator));
         Assert.assertTrue(loginPage.isDisplayed());
         
     }
@@ -283,7 +288,7 @@ public class AuthentificationEspaceEtudiant  {
     }
     @And("un message d'erreur indiquant que le mot de passe est requis est affiché")
     public void un_message_d_erreur_indiquant_que_l_identifiant_est_requis_devrait_s_afficher() {
-        WebElement errorMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ContentPlaceHolder1_RequiredFieldValidator7")));
+        WebElement errorMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(MsgPasswordRequisLocator));
   
         Assert.assertEquals("Mot de passe incorrect", errorMessage.getText());
     }
@@ -310,7 +315,7 @@ public class AuthentificationEspaceEtudiant  {
     }
     @And("un message d'erreur indiquant que l'identifiant est requis est affiché")
     public void un_message_d_erreur_indiquant_que_l_identifiant_est_requis() {
-        WebElement errorMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'Cin incorrect')]")));
+        WebElement errorMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(msgIdentifiantRequisLocator));
   
         Assert.assertEquals("Cin incorrect", errorMessage.getText());
     }

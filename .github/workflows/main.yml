@@ -40,18 +40,12 @@ jobs:
     - name: Install project dependencies
       run: mvn install
 
-    - name: Print Maven version
-      run: mvn -v
-
-    - name: Print Java version
-      run: java -version
-
     - name: Run tests
       env:
         DISPLAY: :99
       run: |
         Xvfb :99 -ac &
-        mvn clean verify -X
+        mvn clean verify
 
     - name: List target directory contents
       run: ls -la target/
@@ -66,13 +60,19 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: test-results
-        path: target/cucumber.json
+        path: target/surefire-reports
 
     - name: Archive Cucumber Reports
       uses: actions/upload-artifact@v2
       with:
         name: cucumber-reports
         path: target/cucumber-reports
+
+    - name: Archive Dump Files
+      uses: actions/upload-artifact@v2
+      with:
+        name: dump-files
+        path: target/dump/
 
     - name: Clean up
       run: mvn clean

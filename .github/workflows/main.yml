@@ -44,7 +44,7 @@ jobs:
       env:
         DISPLAY: :99
       run: |
-        Xvfb :99 -ac &
+        Xvfb :99 -ac -screen 0 1280x1024x24 &
         mvn clean verify
         
     - name: List target directory contents

@@ -46,7 +46,7 @@ jobs:
       run: |
         Xvfb :99 -ac &
         mvn clean verify
-
+        
     - name: List target directory contents
       run: ls -la target/
 
@@ -60,19 +60,13 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: test-results
-        path: target/surefire-reports
+        path: target/cucumber.json
 
     - name: Archive Cucumber Reports
       uses: actions/upload-artifact@v2
       with:
         name: cucumber-reports
         path: target/cucumber-reports
-
-    - name: Archive Dump Files
-      uses: actions/upload-artifact@v2
-      with:
-        name: dump-files
-        path: target/dump/
 
     - name: Clean up
       run: mvn clean

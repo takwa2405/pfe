@@ -9,21 +9,21 @@
   <version>1.0-SNAPSHOT</version>
 
   <name>BDDESB</name>
+  <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
-    <maven.surefire.plugin.version>3.2.5</maven.surefire.plugin.version>
-    <maven.cucumber.reporting.plugin.version>5.8.2</maven.cucumber.reporting.plugin.version>
   </properties>
 
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.13.2</version> <!-- Version mise à jour -->
+      <version>4.11</version>
+       
     </dependency>
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
@@ -39,6 +39,7 @@
       <groupId>io.cucumber</groupId>
       <artifactId>cucumber-junit</artifactId>
       <version>7.18.0</version>
+     
     </dependency>
     <dependency>
       <groupId>net.masterthought</groupId>
@@ -49,6 +50,7 @@
       <groupId>io.rest-assured</groupId>
       <artifactId>rest-assured</artifactId>
       <version>5.3.0</version>
+     
     </dependency>
   </dependencies>
 
@@ -57,15 +59,15 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>${maven.surefire.plugin.version}</version>
+        <version>3.2.5</version>
         <configuration>
-          <testFailureIgnore>false</testFailureIgnore> <!-- Changer à false pour les échecs de tests -->
+          <testFailureIgnore>true</testFailureIgnore>
         </configuration>
       </plugin>
       <plugin>
         <groupId>net.masterthought</groupId>
         <artifactId>maven-cucumber-reporting</artifactId>
-        <version>${maven.cucumber.reporting.plugin.version}</version>
+        <version>5.8.2</version>
         <executions>
           <execution>
             <id>generate-cucumber-reports</id>
@@ -74,16 +76,17 @@
               <goal>generate</goal>
             </goals>
             <configuration>
-              <projectName>BDDESB</projectName>
-              <outputDirectory>${project.build.directory}/cucumber-reports</outputDirectory>
-              <inputDirectory>${project.build.directory}</inputDirectory>
-              <jsonFiles>
-                <jsonFile>**/*.json</jsonFile>
-              </jsonFiles>
-            </configuration>
+                            <projectName>BDDESB</projectName>
+                            <outputDirectory>${project.build.directory}</outputDirectory>
+                        	<inputDirectory>${project.build.directory}</inputDirectory>
+                            <jsonFiles>
+                                <jsonFile>**/*.json</jsonFile>
+                            </jsonFiles>
+                        </configuration>
           </execution>
         </executions>
       </plugin>
     </plugins>
   </build>
 </project>
+

@@ -37,24 +37,19 @@ jobs:
         key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
         restore-keys: ${{ runner.os }}-maven
 
-    - name: Install project dependencies
-      run: mvn install
-
     - name: Run tests
       env:
         DISPLAY: :99
       run: |
         Xvfb :99 -ac &
-        mvn clean verify
-        
+        mvn clean verify -X -e
+
     - name: List target directory contents
       run: ls -la target/
 
     - name: View Cucumber JSON
-      run: cat target/cucumber.json
-
-    - name: Generate Cucumber Reports
-      run: mvn net.masterthought:maven-cucumber-reporting:generate
+      run: |
+        if [ -f target/cucumber.json ]; then cat target/cucumber.json; else echo "Cucumber JSON not found"; fi
 
     - name: Archive Test Results
       uses: actions/upload-artifact@v2

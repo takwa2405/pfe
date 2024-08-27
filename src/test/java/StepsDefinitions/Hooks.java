@@ -11,18 +11,15 @@ import io.cucumber.java.Before;
 public class Hooks {
     public static WebDriver driver;
     public static WebDriverWait wait;
- @Before
-public void setUp() {
-    ChromeOptions options = new ChromeOptions();
-    options.addArguments("--disable-gpu");
-    options.addArguments("--no-sandbox");
-    options.addArguments("--headless");
-    options.addArguments("--disable-dev-shm-usage");
-    driver = new ChromeDriver(options);
-    wait = new WebDriverWait(driver, Duration.ofSeconds(60));
-    driver.get("http://192.168.0.21:7070/ESBOnline/Online/default.aspx");
-    driver.manage().window().maximize();
-}
+  @Before
+    public  void setUp() {
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--disable-search-engine-choice-screen");
+        driver = new ChromeDriver(options);
+        wait = new WebDriverWait(driver, Duration.ofSeconds(60));
+        driver.get("http://192.168.0.21:7070/ESBOnline/Online/default.aspx");
+        driver.manage().window().maximize();
+    }
 
     @After
     public void tearDown() {

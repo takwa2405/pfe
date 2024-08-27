@@ -40,13 +40,19 @@ jobs:
     - name: Install project dependencies
       run: mvn install
 
+    - name: Print Maven version
+      run: mvn -v
+
+    - name: Print Java version
+      run: java -version
+
     - name: Run tests
       env:
         DISPLAY: :99
       run: |
         Xvfb :99 -ac &
-        mvn clean verify
-        
+        mvn clean verify -X
+
     - name: List target directory contents
       run: ls -la target/
 

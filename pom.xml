@@ -23,7 +23,6 @@
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.11</version>
-       
     </dependency>
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
@@ -39,7 +38,6 @@
       <groupId>io.cucumber</groupId>
       <artifactId>cucumber-junit</artifactId>
       <version>7.18.0</version>
-     
     </dependency>
     <dependency>
       <groupId>net.masterthought</groupId>
@@ -50,20 +48,25 @@
       <groupId>io.rest-assured</groupId>
       <artifactId>rest-assured</artifactId>
       <version>5.3.0</version>
-     
     </dependency>
   </dependencies>
 
   <build>
     <plugins>
+      <!-- Plugin Surefire pour l'exécution des tests -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>3.2.5</version>
         <configuration>
           <testFailureIgnore>true</testFailureIgnore>
+          <!-- Exécuter les tests en parallèle -->
+          <parallel>all</parallel>
+          <threadCount>4</threadCount>
         </configuration>
       </plugin>
+
+      <!-- Plugin Cucumber Reporting pour générer les rapports -->
       <plugin>
         <groupId>net.masterthought</groupId>
         <artifactId>maven-cucumber-reporting</artifactId>
@@ -76,13 +79,14 @@
               <goal>generate</goal>
             </goals>
             <configuration>
-                            <projectName>BDDESB</projectName>
-                            <outputDirectory>${project.build.directory}</outputDirectory>
-                        	<inputDirectory>${project.build.directory}</inputDirectory>
-                            <jsonFiles>
-                                <jsonFile>**/*.json</jsonFile>
-                            </jsonFiles>
-                        </configuration>
+              <projectName>BDDESB</projectName>
+              <outputDirectory>${project.build.directory}</outputDirectory>
+              <inputDirectory>${project.build.directory}</inputDirectory>
+              <jsonFiles>
+                <!-- Chemin vers les fichiers JSON générés par Cucumber -->
+                <jsonFile>**/cucumber-report.json</jsonFile>
+              </jsonFiles>
+            </configuration>
           </execution>
         </executions>
       </plugin>

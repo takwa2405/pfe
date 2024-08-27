@@ -44,7 +44,8 @@ jobs:
       env:
         DISPLAY: :99
       run: |
-        Xvfb :99 -ac -screen 0 1280x1024x24 &
+        Xvfb :99 -ac &
+        google-chrome --headless --disable-gpu --no-sandbox --disable-dev-shm-usage &
         mvn clean verify
         
     - name: List target directory contents

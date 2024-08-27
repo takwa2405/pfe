@@ -42,7 +42,7 @@ jobs:
         DISPLAY: :99
       run: |
         Xvfb :99 -ac &
-        mvn clean verify -Dcucumber.options="--plugin json:target/cucumber.json"
+        mvn clean verify
         
     - name: Install project dependencies
       run: mvn install 

@@ -37,15 +37,17 @@ jobs:
         key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
         restore-keys: ${{ runner.os }}-maven
 
-    - name: Install project dependencies
-      run: mvn install -DskipTests
-
     - name: Run tests
       env:
         DISPLAY: :99
       run: |
         Xvfb :99 -ac &
         mvn clean verify -Dcucumber.options="--plugin json:target/cucumber.json"
+        
+    - name: Install project dependencies
+      run: mvn install 
+
+    
 
     - name: List target directory contents
       run: ls -la target/

@@ -13,7 +13,7 @@ Feature: Authentification
     Then l'utilisateur est redirigé vers son espace Parent
     Examples:
       | identifiantP    |pswP               |linkText     |
-      |    34104052     | 34104052          |Espace Parent|
+      |     36904156    |  T108M!22?        |Espace Parent|
 
   @tag13
   Scenario Outline: Authentification avec un identifiant incorrect
@@ -27,7 +27,7 @@ Feature: Authentification
     
     Examples:
     | identifiantIncoP    | pswP              |
-    | 19100kft01025       | 34104052          |
+    | 19100kft01025       | T108M!22?         |
     
     @tag14
   Scenario Outline: Authentification avec identifiant valide et un mot de passe incorrect
@@ -41,7 +41,7 @@ Feature: Authentification
     
     Examples:
       | identifiantvalideP | motdepasseincorrectP |
-      | 34104052           | rtyuarbrevert1234   |
+      | 36904156           | rtyuarbrevert1234   |
     
     
   @tag15
@@ -54,7 +54,7 @@ Feature: Authentification
     Then un message d'erreur indiquant que cin incorrect
     Examples:
       | identifiantvide | pswP1         |
-      |                 | 34104052     |
+      |                 | T108M!22?     |
       
       
  @tag16
@@ -67,7 +67,7 @@ Feature: Authentification
     Then message d'erreur verifier vos parametres
     Examples:
       | identifiantvalideP |
-      | 34104052           | 
+      | 36904156           | 
       
  @tag17
   Scenario Outline: Authentification avec un identifiant et mot de passe valides
@@ -80,6 +80,6 @@ Feature: Authentification
     Then l'utilisateur est redirigé vers son espace Parent 
     Examples:
       | identifiantvalideP|pswP               |linkText     |
-      |34104052           |34104052           |Espace Parent|
+      |36904156           |T108M!22?           |Espace Parent|
   
          

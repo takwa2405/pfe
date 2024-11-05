@@ -26,7 +26,7 @@ Feature: Récupération du mot de passe et ouverture d'email sur Outlook
 
     Examples:
       | email                           | identifiantvalide | emailCorrect           | password            |passwordenvoye|nomDefichierDeCapture    |  
-      | takwa.haggui@esprit.tn          | 191MTB1025        | takwa.haggui@esprit.tn | Hajouda@haykel123@  |arbrevert1234 |captureDeRecuperation.png|
+      | takwa.haggui@esprit.tn          | 191MTB1025        | takwa.haggui@esprit.tn | azerty1231456 |arbrevert1234 |captureDeRecuperation.png|
      
      
      
